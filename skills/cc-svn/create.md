@@ -27,10 +27,8 @@ You are creating a new SVN workspace branch for parallel development.
 
 4. **Create the workspace** using the script:
    ```bash
-   ./scripts/create_workspace.sh "<workspace-name>"
+   bash ./scripts/create_workspace.sh "<workspace-name>" "<description>"
    ```
-
-5. **Confirm creation** and provide next steps:
    - Workspace location: `workspaces/<workspace-name>/`
    - Reminder: All work should happen in the workspace directory
    - Never edit files directly in trunk

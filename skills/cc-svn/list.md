@@ -16,7 +16,7 @@ You are listing all active SVN workspaces in the current project.
 
 2. **List workspaces** using the script:
    ```bash
-   ./scripts/list_workspaces.sh
+   bash ./scripts/list_workspaces.sh
    ```
 
 3. **Display results** in a user-friendly format:

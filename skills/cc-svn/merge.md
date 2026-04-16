@@ -24,7 +24,7 @@ You are merging a completed workspace branch back to trunk.
 
 4. **If approved**, merge to trunk:
    ```bash
-   ./scripts/merge_workspace.sh "<workspace-name>"
+   bash ./scripts/merge_workspace.sh "<workspace-name>"
    ```
 
 5. **Clean up after successful merge**:
