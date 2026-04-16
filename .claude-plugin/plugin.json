@@ -2,5 +2,22 @@
   "name": "cc-svn",
   "description": "AI-driven parallel development workspace manager using SVN",
   "version": "1.0.0",
-  "author": { "name": "mimifuwacc" }
+  "author": { "name": "mimifuwacc" },
+  "skills": [
+    {
+      "name": "create",
+      "description": "Create a new SVN workspace branch for a development task",
+      "promptFile": "skills/cc-svn/create.md"
+    },
+    {
+      "name": "merge",
+      "description": "Merge a workspace branch back to trunk",
+      "promptFile": "skills/cc-svn/merge.md"
+    },
+    {
+      "name": "list",
+      "description": "List all active workspaces",
+      "promptFile": "skills/cc-svn/list.md"
+    }
+  ]
 }
