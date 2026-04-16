@@ -15,7 +15,8 @@ if [[ "$CURRENT_DIR" == "/" ]]; then
 fi
 
 PROJECT_ROOT="$CURRENT_DIR"
-REPO_PATH="$PROJECT_ROOT/.svn-repo"
+# Convert to absolute paths to avoid '..' in SVN URLs
+REPO_PATH="$(cd "$PROJECT_ROOT/.svn-repo" && pwd)"
 WORKSPACES_PATH="$PROJECT_ROOT/workspaces"
 STATE_FILE="$PROJECT_ROOT/.workspace-state.json"
 

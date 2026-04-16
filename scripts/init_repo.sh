@@ -4,7 +4,8 @@
 set -e
 
 PROJECT_ROOT="$(pwd)"
-REPO_PATH="$PROJECT_ROOT/.svn-repo"
+# Convert to absolute paths to avoid '..' in SVN URLs
+REPO_PATH="$(cd "$PROJECT_ROOT/.svn-repo" 2>/dev/null && echo "$(pwd)" || echo "$PROJECT_ROOT/.svn-repo")"
 TRUNK_PATH="$PROJECT_ROOT/trunk"
 
 echo "Initializing SVN repository for cc-svn..."
