@@ -1,0 +1,26 @@
+{
+  "skill_name": "cc-svn",
+  "evals": [
+    {
+      "id": 1,
+      "name": "single-feature-development",
+      "prompt": "Implement user authentication functionality. Need login, logout, and session management.",
+      "expected_output": "SVN workspace created for feature development, authentication implementation completed, workspace merged to trunk after user approval",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "parallel-tasks",
+      "prompt": "Please work on two tasks in parallel: 1) Fix the login bug, 2) Add user registration functionality",
+      "expected_output": "Two separate SVN workspaces created, each task completed independently in its own workspace, both merged to trunk after approval",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "experimental-feature",
+      "prompt": "I want to try out a new UI library. Create a sample page using Svelte instead of React",
+      "expected_output": "Workspace created for experiment, Svelte sample page implemented, changes shown for review before merge decision",
+      "files": []
+    }
+  ]
+}
