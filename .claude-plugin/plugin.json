@@ -7,17 +7,17 @@
     {
       "name": "create",
       "description": "Create a new SVN workspace branch for a development task",
-      "promptFile": "skills/cc-svn/create.md"
+      "prompt": "Create a new SVN workspace branch. Steps: 1) Check if .svn-repo exists, 2) Generate workspace name (feature-/fix-/experiment-<description>), 3) Run: bash ./scripts/create_workspace.sh '<workspace-name>' '<description>', 4) Confirm creation and provide next steps. Always use bash to run scripts."
     },
     {
       "name": "merge",
       "description": "Merge a workspace branch back to trunk",
-      "promptFile": "skills/cc-svn/merge.md"
+      "prompt": "Merge a completed workspace branch to trunk. Steps: 1) Get workspace name, 2) Show changes with: svn diff file://$(pwd)/../.svn-repo/trunk, 3) Ask for user approval, 4) If approved, run: bash ./scripts/merge_workspace.sh '<workspace-name>', 5) Clean up workspace. Always show diff before merging and get explicit user approval."
     },
     {
       "name": "list",
-      "description": "List all active workspaces",
-      "promptFile": "skills/cc-svn/list.md"
+      "description": "List all active SVN workspaces",
+      "prompt": "List all active SVN workspaces. Steps: 1) Check if .svn-repo exists, 2) Run: bash ./scripts/list_workspaces.sh, 3) Display results in user-friendly format with workspace name, creation date, status, and description. Show next steps for creating/working on/merging workspaces."
     }
   ]
 }
