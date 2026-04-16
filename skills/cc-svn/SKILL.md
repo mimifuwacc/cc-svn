@@ -1,6 +1,6 @@
 ---
 name: cc-svn
-description: AI-driven parallel development workspace manager using SVN. Enables Git worktree-like branching with cheap copies for feature development, bug fixes, and experimental work. Always use this skill when the user mentions features, bug fixes, parallel work, branches, or needs to work on multiple tasks simultaneously - even if they don't explicitly ask for SVN or workspaces. This is the default workflow for all feature development tasks.
+description: AI-driven parallel development workspace manager using SVN. MANDATORY for all code modification tasks. Enforces branch-before-edit workflow: create workspace branches FIRST, then implement. Prevents accidental edits to trunk. Use for features, bug fixes, refactoring, experiments - ANY task that edits code. This is the ONLY approved workflow for code changes.
 ---
 
 # cc-svn: AI-Driven SVN Workspace Manager
@@ -30,7 +30,13 @@ project-root/
 
 ## Core Principles
 
-1. **Every feature/bugfix gets its own workspace**
+1. **BRANCH FIRST, IMPLEMENT SECOND**
+   - This is the most critical rule
+   - Before writing ANY code, create a workspace branch
+   - No exceptions, no shortcuts
+   - If you catch yourself editing files without a branch, stop immediately
+
+2. **Every feature/bugfix gets its own workspace**
    - Never work directly in trunk
    - Each workspace is a branch + checkout
    - Workspaces are created instantly using SVN's cheap copy
@@ -50,6 +56,25 @@ project-root/
    - Keep workspace directory clean
 
 ## Workflow
+
+### MANDATORY: Branch Before Implementation
+
+**CRITICAL RULE: Never start implementing features, bug fixes, or any code changes without first creating a workspace branch.**
+
+Before you write ANY code, you must:
+1. Stop and recognize this is a code modification task
+2. Create a workspace branch following the steps below
+3. Only THEN begin implementation
+
+**Detection checklist - Create a branch if the user asks for:**
+- New features ("Implement X", "Add Y feature")
+- Bug fixes ("Fix X bug", "This doesn't work")
+- Code changes ("Modify X", "Update Y", "Change Z")
+- Experiments ("Try X approach", "Test Y idea")
+- Refactoring ("Refactor X", "Clean up Y")
+
+**If you're about to edit a file and haven't created a workspace branch yet - STOP.**
+Create the branch first, then proceed with implementation.
 
 ### Initial Setup (First Time Only)
 
@@ -160,21 +185,31 @@ ls -la workspaces/
 
 ## When to Use This Skill
 
-**Always use this skill for:**
-- Feature development
-- Bug fixes
-- Refactoring work
-- Experimental changes
-- Any code modification task
+**MANDATORY: Always use this skill for ANY code modification:**
+- Feature development ("Add X", "Implement Y", "Create Z feature")
+- Bug fixes ("Fix X bug", "This is broken", "X doesn't work")
+- Refactoring work ("Refactor X", "Clean up Y")
+- Experimental changes ("Try X", "Test Y approach")
+- ANY task that involves editing code files
 
-**Trigger phrases:**
+**If the user asks you to modify code in ANY way, you MUST:**
+1. Recognize this requires a workspace branch
+2. Create the branch FIRST
+3. Only then start implementation
+
+**Trigger phrases - These ALWAYS require creating a branch:**
 - "Implement [feature]"
 - "Fix [bug]"
 - "Add [functionality]"
 - "Work on [task]"
-- "Parallel work"
-- "Multiple tasks"
-- "Branch" (if used in context of development)
+- "Modify [code]"
+- "Change [X]"
+- "Update [Y]"
+- "Try [approach]"
+- "Experiment with [X]"
+- "Create [feature]"
+
+**When in doubt: Create a branch.** It's fast (constant-time) and safe.
 
 ## Common Patterns
 
@@ -183,11 +218,14 @@ ls -la workspaces/
 User: "Add user authentication"
 
 You:
-1. Create workspace `feature-user-auth`
-2. Implement in `workspaces/feature-user-auth/`
-3. Show diff and get approval
-4. Merge to trunk
-5. Clean up
+1. **STOP** - Recognize this is a code modification task
+2. Create workspace `feature-user-auth` (CRITICAL - do this FIRST)
+3. **THEN** Implement in `workspaces/feature-user-auth/`
+4. Show diff and get approval
+5. Merge to trunk
+6. Clean up
+
+**Key Point: Step 2 (branch creation) MUST happen before Step 3 (implementation).**
 
 ### Pattern 2: Parallel Tasks
 
@@ -210,11 +248,21 @@ You:
 
 ## Important Constraints
 
-1. **Never work directly in trunk** - Always use a workspace
-2. **Always get user approval before merging** - No automatic merges
-3. **Clean up workspaces** - Don't leave old workspaces around
-4. **Keep workspace names descriptive** - Helps with organization
-5. **Commit frequently** - Don't lose work
+1. **BRANCH BEFORE EDITING** - Create workspace branch BEFORE making any code changes
+2. **Never work directly in trunk** - Always use a workspace for any code modifications
+3. **Always get user approval before merging** - No automatic merges
+4. **Clean up workspaces** - Don't leave old workspaces around
+5. **Keep workspace names descriptive** - Helps with organization
+6. **Commit frequently** - Don't lose work
+
+## Pre-Implementation Checklist
+
+Before starting any implementation, verify:
+- [ ] Have I created a workspace branch?
+- [ ] Am I working in the workspace directory (not trunk)?
+- [ ] Does the workspace name clearly describe the task?
+
+If the answer to any of these is "NO", create the branch first.
 
 ## SVN Commands Reference
 

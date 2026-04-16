@@ -1,0 +1,6 @@
+{
+  "name": "cc-svn",
+  "description": "AI-driven parallel development workspace manager using SVN",
+  "version": "1.0.0",
+  "author": { "name": "mimifuwacc" }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "cc-svn",
+  "version": "1.0.0",
+  "description": "AI-driven parallel development workspace manager using SVN",
+  "keywords": ["claude-code", "skill", "svn", "workspace", "development"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YOUR_USERNAME/cc-svn.git"
+  },
+  "license": "MIT"
+}
