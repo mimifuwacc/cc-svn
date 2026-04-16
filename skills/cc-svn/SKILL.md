@@ -271,40 +271,121 @@ If the answer to any of these is "NO", create the branch first.
 # Create repository
 svnadmin create .svn-repo
 
+# Get repository root path (CRITICAL: Always use this pattern)
+REPO_ROOT="$(pwd)/.svn-repo"
+
 # Import existing code
-svn checkout file://$(pwd)/.svn-repo/trunk trunk
+svn checkout file://$REPO_ROOT/trunk trunk
 ```
 
 ### Branching
 ```bash
 # Create branch (instant - cheap copy!)
-svn copy file://$(pwd)/.svn-repo/trunk \
-          file://$(pwd)/.svn-repo/branches/<name> \
+# ALWAYS use absolute paths - NEVER use ../ in URLs
+REPO_ROOT="$(pwd)/.svn-repo"
+svn copy file://$REPO_ROOT/trunk \
+          file://$REPO_ROOT/branches/<name> \
           -m "Create branch"
 
 # Checkout branch
-svn checkout file://$(pwd)/.svn-repo/branches/<name> workspaces/<name>
+svn checkout file://$REPO_ROOT/branches/<name> workspaces/<name>
 ```
 
 ### Merging
 ```bash
+# CRITICAL: Always use absolute paths and verify directory
+REPO_ROOT="$(pwd)/.svn-repo"
+cd trunk_checkout  # Use trunk_checkout, NOT trunk directory
+
+# Update before merging
+svn update
+
 # See what will change
-svn diff file://$(pwd)/.svn-repo/trunk
+svn diff file://$REPO_ROOT/trunk
 
 # Merge branch to trunk
-cd trunk
-svn merge file://$(pwd)/../.svn-repo/branches/<name>
+svn merge file://$REPO_ROOT/branches/<name>
+
+# Verify merge
+svn status
+
+# Commit merge
 svn commit -m "Merge branch"
 ```
 
 ### Cleanup
 ```bash
-# Delete branch
-svn delete file://$(pwd)/.svn-repo/branches/<name> -m "Remove branch"
+# Delete branch (use absolute path)
+REPO_ROOT="$(pwd)/.svn-repo"
+svn delete file://$REPO_ROOT/branches/<name> -m "Remove branch"
 
 # Remove workspace directory
 rm -rf workspaces/<name>
 ```
+
+## CRITICAL SVN Safety Rules
+
+### ALWAYS Do These Things
+
+1. **Use absolute paths for all SVN URLs**
+   ```bash
+   # WRONG - contains ../
+   svn merge file://$(pwd)/../.svn-repo/branches/feature
+
+   # RIGHT - absolute path
+   REPO_ROOT="$(pwd)/.svn-repo"
+   svn merge file://$REPO_ROOT/branches/feature
+   ```
+
+2. **Verify current directory before operations**
+   ```bash
+   pwd  # Always check where you are
+   svn status  # Always verify SVN state
+   ```
+
+3. **Use trunk_checkout for merges**
+   ```bash
+   # WRONG - trunk is not a working copy
+   cd trunk
+   svn merge ...
+
+   # RIGHT - trunk_checkout is the working copy
+   cd trunk_checkout
+   svn merge ...
+   ```
+
+4. **Update before merging**
+   ```bash
+   svn update  # Always get latest changes
+   svn status  # Verify update succeeded
+   ```
+
+5. **Check status after each operation**
+   ```bash
+   svn status  # Verify operation succeeded
+   ```
+
+### NEVER Do These Things
+
+1. **NEVER use ../ in SVN URLs**
+   - Causes "contains '..' element" error
+   - Use absolute paths instead
+
+2. **NEVER run SVN commands without pwd verification**
+   - You might be in wrong directory
+   - Always verify location first
+
+3. **NEVER merge without updating first**
+   - Causes "out of date" errors
+   - Always run `svn update` before merge
+
+4. **NEVER use trunk directory for operations**
+   - trunk is not an SVN working copy
+   - Use trunk_checkout instead
+
+5. **NEVER ignore SVN errors**
+   - Errors indicate something is wrong
+   - Stop and investigate before proceeding
 
 ## Troubleshooting
 
